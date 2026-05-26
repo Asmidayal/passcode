@@ -12,7 +12,7 @@ const Manager = () => {
  
   
 const showPassword = () => {
-  passwordRef.current.type = passwordRef.current.type === "password" ? "text" : "password"
+  passwordRef.current.type = passwordRef.current.type === "password" ? "password" : "text"
   setform({ ...form })
 
    // passwordRef.current.type="text"
