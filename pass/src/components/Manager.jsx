@@ -78,7 +78,7 @@ const copyToClipboard = (text) => {
             <input value={form.username} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="text" placeholder="Enter Username" name="username"></input>
             <div className="relative">
               <input ref={passwordRef} value={form.password} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="password" placeholder='Enter Password' name="password"></input>
-              <span className='absolute right-1  top-1 cursor-pointer' onClick={showPassword}>
+              <span className= 'absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'onClick={showPassword}>
                 {passwordRef.current?.type === "password" ? "🙈" : "👁️" }
               </span>
             </div>
