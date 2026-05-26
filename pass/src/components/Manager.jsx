@@ -72,14 +72,14 @@ const copyToClipboard = (text) => {
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div>
       <div className=" mycontainer ">
         <h2 className='text-purple-600 font-bold text-center'> Your own password manager</h2>
-        <div className=" text-purple-800 flex flex-col p-4 gap-5">
-          <input value={form.site} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="text" placeholder="Enter website URL" name="site"></input>
-          <div className="flex w-full gap-3 justify-center">
-            <input value={form.username} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="text" placeholder="Enter Username" name="username"></input>
-            <div className="relative">
+        <div className=" text-purple-800 flex flex-col p-4 max-w-2xl mx-auto w-full gap-5">
+          <input value={form.site} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1px-4 focus:outline-none " type="text" placeholder="Enter website URL" name="site"></input>
+          <div className="flex flex-col md:flex-row w-full gap-3 justify-center">
+            <input value={form.username} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1 md:w-1/2 px-4 focus:outline-none " type="text" placeholder="Enter Username" name="username"></input>
+            <div className="relative w-full md:w-1/2" >
               <input type={isPasswordVisible ? "text" : "password"} 
     value={form.password} 
-    onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1"  placeholder='Enter Password' name="password"></input>
+    onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1 pl-4 pr-10 focus:outline-none"  placeholder='Enter Password' name="password"></input>
               <span className= 'absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'onClick={togglePasswordVisibility}>
                 {isPasswordVisible ? "🙈" : "👁️" }
               </span>
@@ -91,7 +91,9 @@ const copyToClipboard = (text) => {
         <div className='passwords'>
           <h2 className='font-bold text-2xl text-purple-600 p-4'>Your Passwords</h2>
           {passwordArray.length === 0 && <div> No Passwords to Show</div>}
-         {passwordArray.length != 0 && <table className="table-auto w-full rounded-xl">
+         {passwordArray.length != 0 && 
+         <div className="w-full overflow-x-auto rounded-xl border border-purple-200 shadow-sm">
+         <table className="table-auto w-full min-w-[600px] rounded-xl">
   <thead className='bg-purple-300 text-purple-900 py-2 '>
     <tr>
       <th>Site</th>
@@ -102,17 +104,17 @@ const copyToClipboard = (text) => {
   </thead>
   <tbody className='bg-purple-100'>
     {passwordArray.map((item,index) => {
-    return <tr key={index}>
-     < td className='text-center py-2 border border-white w-32'><a href={item.site}></a>{item.site} 
+    return <tr key={index} className="border-b border-white">
+     < td className='text-center py-2 px-4 max-w-[150px] truncate '><a href={item.site}></a>{item.site} 
     <i className="bi bi-clipboard-plus px-1" onClick={()=>copyToClipboard(item.site)}></i>
      </td>
-      < td className='text-center py-2 border border-white w-32'>{item.username}
+      < td className='text-center py-2 px-4'>{item.username}
       <i className="bi bi-clipboard-plus px-1" onClick={()=>copyToClipboard(item.username)}></i>
       </td>
-      < td className='text-center py-2 border border-white w-32'>{item.password}
+      < td className='text-center py-2 px-4'>{item.password}
       <i className="bi bi-clipboard-plus px-1"onClick={()=>copyToClipboard(item.password)} ></i>
       </td>
-      <td className='text-center py-2 border border-white w-32'>
+      <td className='text-center py-2 px-4'>
         <span className='px-2'onClick={()=>{deletePassword(item.id)} } > 
           <lord-icon
    src="https://cdn.lordicon.com/xyfswyxf.json"
@@ -139,7 +141,8 @@ const copyToClipboard = (text) => {
 })}
   
   </tbody>
-</table>}
+</table>
+</div>}
         </div>
       </div>
     </>
