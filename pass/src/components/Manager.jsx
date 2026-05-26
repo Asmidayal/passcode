@@ -71,9 +71,9 @@ const copyToClipboard = (text) => {
     <>
       <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div>
       <div className=" mycontainer ">
-        <h2 className='text-purple-600 font-bold text-center'> Your own password manager</h2>
-        <div className=" text-purple-800 flex flex-col p-4 max-w-2xl mx-auto w-full gap-5">
-          <input value={form.site} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1px-4 focus:outline-none " type="text" placeholder="Enter website URL" name="site"></input>
+        <h2 className='text-purple-600 font-bold text-center px-4 text-xl'> Your own password manager</h2>
+        <div className=" text-purple-800 flex flex-col p-4  mx-auto w-full gap-5">
+          <input value={form.site} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1 px-4 focus:outline-none " type="text" placeholder="Enter website URL" name="site"></input>
           <div className="flex flex-col md:flex-row w-full gap-3 justify-center">
             <input value={form.username} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1 md:w-1/2 px-4 focus:outline-none " type="text" placeholder="Enter Username" name="username"></input>
             <div className="relative w-full md:w-1/2" >
@@ -86,14 +86,14 @@ const copyToClipboard = (text) => {
             </div>
           </div>
           <div className='flex justify-center w-full '>
-            <button onClick={savePassword} className="flex justify-center items-center gap-2 bg-purple-600 rounded-full border border-purple-800 px-2 py-1 w-fit text-purple-100 hover:font-bold text-sm"> Add Password</button></div>
+            <button onClick={savePassword} className="flex justify-center items-center gap-2 bg-purple-600 rounded-full border border-purple-800 px-4 py-2 w-fit text-purple-100 hover:font-bold text-sm"> Add Password</button></div>
         </div>
         <div className='passwords'>
           <h2 className='font-bold text-2xl text-purple-600 p-4'>Your Passwords</h2>
           {passwordArray.length === 0 && <div> No Passwords to Show</div>}
          {passwordArray.length != 0 && 
          <div className="w-full overflow-x-auto rounded-xl border border-purple-200 shadow-sm">
-         <table className="table-auto w-full min-w-[600px] rounded-xl">
+         <table className="table-auto w-full  rounded-xl">
   <thead className='bg-purple-300 text-purple-900 py-2 '>
     <tr>
       <th>Site</th>
@@ -111,18 +111,18 @@ const copyToClipboard = (text) => {
       < td className='text-center py-2 px-4'>{item.username}
       <i className="bi bi-clipboard-plus px-1" onClick={()=>copyToClipboard(item.username)}></i>
       </td>
-      < td className='text-center py-2 px-4'>{item.password}
+      < td className='text-center py-2 px-4  max-w-[120px] truncate'>{item.password}
       <i className="bi bi-clipboard-plus px-1"onClick={()=>copyToClipboard(item.password)} ></i>
       </td>
       <td className='text-center py-2 px-4'>
-        <span className='px-2'onClick={()=>{deletePassword(item.id)} } > 
+        <button className='p-2 inline-flex'onClick={()=>{deletePassword(item.id)} } > 
           <lord-icon
    src="https://cdn.lordicon.com/xyfswyxf.json"
     trigger="hover"
     colors="primary:#4f1091"
     style={{"width":"25px" ,"height":"25px"}}>
 </lord-icon>
-        </span>
+        </button>
  <span className=''onClick={()=>{editPassword(item.id)} }> 
   <lord-icon
   src="https://cdn.lordicon.com/vysppwvq.json"
