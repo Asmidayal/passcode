@@ -79,7 +79,7 @@ const copyToClipboard = (text) => {
             <div className="relative">
               <input type={isPasswordVisible ? "text" : "password"} 
     value={form.password} 
-    onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="password" placeholder='Enter Password' name="password"></input>
+    onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1"  placeholder='Enter Password' name="password"></input>
               <span className= 'absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'onClick={togglePasswordVisibility}>
                 {isPasswordVisible ? "🙈" : "👁️" }
               </span>
