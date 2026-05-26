@@ -7,47 +7,34 @@ const Manager = () => {
   const ref = useRef()
   const passwordRef = useRef()
   const [form, setform] = useState({ site: "", username: "", password: "" })
-  const [passwordArray, setPasswordArray] = useState([])
-  const getPasswords = async () => {
-    let req = await fetch("http://localhost:3000/")
-     let passwords = await req.json()
-     console.log(passwords)
-     setPasswordArray (passwords)
+  const [passwordArray, setPasswordArray] = useState(JSON.parse(localStorage.getItem("passwords")) || [])
+  
+ 
+  
+const showPassword = () => {
+  passwordRef.current.type = passwordRef.current.type === "password" ? "text" : "password"
+  setform({ ...form })
 
-    
-  }
-  useEffect(() => {
-    getPasswords();
-   
-
-  }, [])
-  const showPassword = () => {
    // passwordRef.current.type="text"
-    console.log(ref.current.src)
-    if (ref.current.src.includes("icons/hidden.png")) {
+   // console.log(ref.current.src)
+    //if (ref.current.src.includes("icons/hidden.png")) {
         
-      ref.current.src = "icons/eye.png"
-       passwordRef.current.type="text"
-    }
-    else {
-      ref.current.src = "icons/hidden.png"
-     passwordRef.current.type="password"
-    }
+    //  ref.current.src = "icons/eye.png"
+    //   passwordRef.current.type="text"
+   // }
+   // else {
+    //  ref.current.src = "icons/hidden.png"
+   //  passwordRef.current.type="password"
+   // }
 
   }
-  const savePassword = async () => {
+  const savePassword = () => {
     if (form.site.length>3 && form.username.length>3 && form.password.length>3) {
      const id = uuidv4(); //  generate once, reuse everywhere
     const newEntry = { ...form, id };
     setPasswordArray([...passwordArray, newEntry])
-    await fetch("http://localhost:3000/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify( newEntry)
-
-    })
+    localStorage.setItem("passwords", JSON.stringify([...passwordArray, newEntry]))
+    
      setform({ site: "", username: "", password: "" }); // ✅ reset form after save
   } else {
     alert("Each field must be longer than 3 characters!"); // ✅ user feedback
@@ -57,18 +44,12 @@ const Manager = () => {
     //localStorage.setItem("passwords", JSON.stringify([...passwordArray, {...form, id: uuidv4()}]))
    // console.log(passwordArray)
   
-  const deletePassword = async (id) => {
+  const deletePassword =  (id) => {
     console.log("delete password", id)
     setPasswordArray(passwordArray.filter(item=>item.id !== id))
-  let res= await fetch("http://localhost:3000/", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify( { id})
-    })
- // localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item=>item.id !== id)))
-    //console.log(passwordArray)
+    localStorage.setItem("passwords", JSON.stringify(passwordArray.filter(item => item.id !== id)))
+  
+
  }
  const editPassword = (id) => {
    console.log("edit password", id)
@@ -98,7 +79,7 @@ const copyToClipboard = (text) => {
             <div className="relative">
               <input ref={passwordRef} value={form.password} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="password" placeholder='Enter Password' name="password"></input>
               <span className='absolute right-1  top-1 cursor-pointer' onClick={showPassword}>
-                <img ref={ref} className='p-1' width={26} src="./icons/eye.png" alt="eye" />
+                <i className={passwordRef.current?.type === "password" ? "🙈" : "👁️" }></i>
               </span>
             </div>
           </div>
