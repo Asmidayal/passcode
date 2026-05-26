@@ -8,12 +8,12 @@ const Manager = () => {
   const passwordRef = useRef()
   const [form, setform] = useState({ site: "", username: "", password: "" })
   const [passwordArray, setPasswordArray] = useState(JSON.parse(localStorage.getItem("passwords")) || [])
-  
+  // This starts as false because you want the password hidden initially
+const [isPasswordVisible, setIsPasswordVisible] = useState(false);
  
-  
-const showPassword = () => {
-  passwordRef.current.type = passwordRef.current.type === "password" ? "password" : "text"
-  setform({ ...form })
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(prev => !prev);
+};
 
    // passwordRef.current.type="text"
    // console.log(ref.current.src)
@@ -27,7 +27,7 @@ const showPassword = () => {
    //  passwordRef.current.type="password"
    // }
 
-  }
+  
   const savePassword = () => {
     if (form.site.length>3 && form.username.length>3 && form.password.length>3) {
      const id = uuidv4(); //  generate once, reuse everywhere
@@ -77,9 +77,11 @@ const copyToClipboard = (text) => {
           <div className="flex w-full gap-3 justify-center">
             <input value={form.username} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="text" placeholder="Enter Username" name="username"></input>
             <div className="relative">
-              <input ref={passwordRef} value={form.password} onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="password" placeholder='Enter Password' name="password"></input>
-              <span className= 'absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'onClick={showPassword}>
-                {passwordRef.current?.type === "password" ?"👁️" : "🙈" }
+              <input type={isPasswordVisible ? "text" : "password"} 
+    value={form.password} 
+    onChange={handleChange} className="rounded-full border border-purple-600 w-full p-2 py-1" type="password" placeholder='Enter Password' name="password"></input>
+              <span className= 'absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer'onClick={togglePasswordVisibility}>
+                {isPasswordVisible ? "🙈" : "👁️" }
               </span>
             </div>
           </div>
